@@ -15,17 +15,17 @@ STATIC_FILE_PATH = ''
 
 class ExtUser(models.Model):
     user = models.OneToOneField(User)
-    wx_openid = models.CharField()
-    wx_avatar = model.CharField()
+    wx_openid = models.CharField(max_length=256)
+    wx_avatar = models.URLField(max_length=256)
 
 
 class Mail(models.Model):
-    created_by = models.ForeignKey(ExtUser)
-    title = models.CharField()
+    created_by = models.ForeignKey(ExtUser, related_name='creater')
+    title = models.CharField(max_length=256)
     content = models.TextField()
     create_at = models.DateTimeField(default=now)
     open_at = models.DateTimeField()
-    received_by = models.ManyToManyField(ExtUser)
+    received_by = models.ManyToManyField(ExtUser, related_name='receiver')
 
 
 class MailAttachment(models.Model):
@@ -42,7 +42,7 @@ class MailAttachment(models.Model):
 class MailComment(models.Model):
     mail = models.ForeignKey(Mail)
     created_by = models.ForeignKey(ExtUser)
-    create_at = model.DateTimeField(default=now)
-    content = model.TextField()
+    create_at = models.DateTimeField(default=now)
+    content = models.TextField()
     
     
