@@ -1,5 +1,5 @@
 from django.conf import settings
-
+import os
 
 FILE_TYPE_CHOICES = (
         ('im', 'Image'),
@@ -8,6 +8,4 @@ FILE_TYPE_CHOICES = (
         )
 
 
-STATIC_FILE_PATH = ''
-
-
+STATIC_FILE_PATH = os.path.join('mail')
