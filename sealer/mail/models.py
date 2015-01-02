@@ -1,16 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
-
-
-FILE_TYPE_CHOICES = (
-        ('im', 'Image'),
-        ('vi', 'Video'),
-        ('au', 'Audio'),
-        )
-
-
-STATIC_FILE_PATH = ''
+from utils.const import FILE_TYPE_CHOICES, STATIC_FILE_PATH
 
 
 class ExtUser(models.Model):
