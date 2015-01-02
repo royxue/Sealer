@@ -3,10 +3,21 @@ from django.db import models
 from django.utils.timezone import now
 
 
+FILE_TYPE_CHOICES = (
+        ('im', 'Image'),
+        ('vi', 'Video'),
+        ('au', 'Audio'),
+        )
+
+
+STATIC_FILE_PATH = ''
+
+
 class ExtUser(models.Model):
     user = models.OneToOneField(User)
     wx_openid = models.CharField()
     wx_avatar = model.CharField()
+
 
 class Mail(models.Model):
     created_by = models.ForeignKey(ExtUser)
@@ -16,14 +27,16 @@ class Mail(models.Model):
     open_at = models.DateTimeField()
     received_by = models.ManyToManyField(ExtUser)
 
-class File(models.Model):
-    FILE_TYPE_CHOICES = (
-            ('im', 'Image'),
-            ('vi', 'Video'),
-            ('au', 'Audio'),
-            )
-    f_type = models.CharField(max_length=2, choices=FILE_TYPE_CHOICES)
+
+class MailAttachment(models.Model):
+
     mail = models.ForeignKey(Mail)
+    f_type = models.CharField(max_length=2, choices=FILE_TYPE_CHOICES)
+    attachment = models.FileField(upload_to=STATIC_FILE_PATH)
+
+    @property
+    def link(self):
+        return ''.join((STATIC_FILE_PATH, self.attachment.url))
 
 
 class MailComment(models.Model):
