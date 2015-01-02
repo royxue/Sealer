@@ -35,5 +35,3 @@ class MailComment(models.Model):
     created_by = models.ForeignKey(ExtUser)
     create_at = models.DateTimeField(default=now)
     content = models.TextField()
-    
-    

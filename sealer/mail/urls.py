@@ -3,5 +3,5 @@ import mail.views
 
 urlpatterns = patterns(
 	'',
-	url(),
+	url(r'^$', mail.views.IndexView.as_view()),
 	)
