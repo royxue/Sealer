@@ -18,6 +18,9 @@ class Mail(models.Model):
     open_at = models.DateTimeField()
     received_by = models.ManyToManyField(ExtUser, related_name='receiver')
 
+    def __unicode__(self):
+        return unicode(self.title)
+
 
 class MailAttachment(models.Model):
 
