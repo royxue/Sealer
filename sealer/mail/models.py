@@ -11,12 +11,13 @@ class ExtUser(models.Model):
 
 
 class Mail(models.Model):
-    created_by = models.ForeignKey(ExtUser, related_name='creater')
+    create_by = models.ForeignKey(ExtUser, related_name='creater')
     title = models.CharField(max_length=256)
     content = models.TextField()
     create_at = models.DateTimeField(default=now)
     open_at = models.DateTimeField()
-    received_by = models.ManyToManyField(ExtUser, related_name='receiver')
+    receive_by = models.ManyToManyField(ExtUser, related_name='receiver',
+                                        null=True, blank=True)
 
     def __unicode__(self):
         return unicode(self.title)
@@ -35,6 +36,6 @@ class MailAttachment(models.Model):
 
 class MailComment(models.Model):
     mail = models.ForeignKey(Mail)
-    created_by = models.ForeignKey(ExtUser)
+    create_by = models.ForeignKey(ExtUser)
     create_at = models.DateTimeField(default=now)
     content = models.TextField()

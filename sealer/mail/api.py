@@ -10,21 +10,18 @@ from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
 class ExtUserResource(tastypie.resources.ModelResource):
 
-	def obj_create():
-		pass
-
 	class Meta:
 		serializers = tastypie.serializers.Serializer(formats=['json', 'xml'])
 		queryset = mail.models.ExtUser.objects.all()
-		resource_name = 'extuser'
-		always_return_data = True
+		resource_name = 'ext_user'
 
 
 class MailResource(tastypie.resources.ModelResource):
-	created_by  = tastypie.fields.ForeignKey('mail.api.ExtUserResource', 'created_by')
+	created_by = tastypie.fields.ForeignKey('mail.api.ExtUserResource', 'created_by')
 
-	def dehydrate(self):
-		pass
+	def dehydrate(self, bundle):
+		del bundle.data['create']
+		return bundle
 
 	class Meta:
 		serializers = tastypie.serializers.Serializer(formats=['json', 'xml'])
@@ -43,22 +40,20 @@ class MailAttachmentResource(tastypie.resources.ModelResource):
 	class Meta:
 		serializers = tastypie.serializers.Serializer(formats=['json', 'xml'])
 		queryset = mail.models.MailAttachment.objects.all()
-		resource_name = 'mailattachment'
+		resource_name = 'mail/attachment'
 		filtering = {
 			'mail': ALL_WITH_RELATIONS,
 		}
 
 
 class MailCommentResource(tastypie.resources.ModelResource):
+	created_by = tastypie.fields.ForeignKey('mail.api.ExtUserResource', 'created_by')
 	mail = tastypie.fields.ForeignKey('mail.api.MailResource', 'mail')
 
 	class Meta:
 		serializers = tastypie.serializers.Serializer(formats=['json', 'xml'])
 		queryset = mail.models.MailComment.objects.all()
-		resource_name = 'mailcomment'
+		resource_name = 'mail/comment'
 		filtering = {
 			'mail': ALL_WITH_RELATIONS,
 		}
-
-
-
