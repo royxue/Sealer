@@ -63,8 +63,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sealer',
         'HOST': 'localhost',
-        'USER': '',
-        'PASSWORD': '',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
         'PORT': 5432,
     }
 }
