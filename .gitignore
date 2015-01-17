@@ -1,3 +1,4 @@
+sealer/sealer/settings.py
 *.pyc
 *.sublime-project
 *.sublime-workspace
