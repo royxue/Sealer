@@ -10,16 +10,26 @@ body {
 {% block body %}
 {% load staticfiles %}
 <div>
-    <div id="xinfeng" style="margin: 60px 10% 0 10%">
-        <img src="{% static 'xinfeng.png' %}" style="max-width: 100%"></img>
+    <div id="xinfeng" style="margin: 10% 10% 0 10%; position: relative; height: 300px">
+        {% if object.open_at > now %}
+        <img src="{% static 'xinfeng.png' %}" style="max-width: 100%; position: absolute" />
+        {% else %}
+        <img src="{% static 'xinfeng_open.png' %}" style="max-width: 100%; position: absolute" />
+        {% endif %}
     </div>
-    <div id="tucao_logo" style="margin: 20px 25% 0 25%; position: relative; height: 65px">
-        <img src="{% static 'tucao.png' %}" style="max-width: 100%; position: absolute"></img>
+    <div id="tucao_logo" style="margin: 5% 25% 0 25%; position: relative; height: 60px">
+        <img src="{% static 'tucao.png' %}" style="max-width: 100%; position: absolute" />
         <p style="position: absolute; text-align: center; margin-top: 5%; color: white; width: 100%">大家来吐槽</p>
     </div>
-    <div id="tucao_list">
+    <div id="tucao_list" style="margin: 10% 10% 0 10%">
         {% for comment in object.mail_comment.all %}
-        <p>{{ comment.id }}</p>
+        <div style="margin-top: 20px; height: 60px">
+            <img src="{{ comment.create_by.wx_avatar }}" style="width: 20%; float: left"/>
+            <div style="color: white; float: right; width: 70%">
+                <p>{{ comment.create_by.user.username }}<p>
+                <p>{{ comment.content }}<p>
+            </div>
+        </div>
         {% endfor %}
     </div>
 </div>

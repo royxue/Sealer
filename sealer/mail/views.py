@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.utils.timezone import now
 from django.views.generic import View, DetailView, TemplateView
 import mail.models
 
@@ -15,4 +16,5 @@ class MailDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(MailDetailView, self).get_context_data(**kwargs)
+        context.update({'now': now()})
         return context
