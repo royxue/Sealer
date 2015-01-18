@@ -9,6 +9,9 @@ class ExtUser(models.Model):
     wx_openid = models.CharField(max_length=256)
     wx_avatar = models.URLField(max_length=256)
 
+    def __unicode__(self):
+        return unicode(self.id)
+
 
 class Mail(models.Model):
     create_by = models.ForeignKey(ExtUser, related_name='creater')
@@ -20,7 +23,7 @@ class Mail(models.Model):
                                         null=True, blank=True)
 
     def __unicode__(self):
-        return unicode(self.title)
+        return unicode(self.id)
 
 
 class MailAttachment(models.Model):
@@ -35,7 +38,7 @@ class MailAttachment(models.Model):
 
 
 class MailComment(models.Model):
-    mail = models.ForeignKey(Mail)
+    mail = models.ForeignKey(Mail, related_name="mail_comment")
     create_by = models.ForeignKey(ExtUser)
     create_at = models.DateTimeField(default=now)
     content = models.TextField()
