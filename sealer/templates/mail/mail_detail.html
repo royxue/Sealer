@@ -1,6 +1,7 @@
 {% extends 'mail/_base.html' %}
 {% block head %}
 {% load staticfiles %}
+<title>{{ object.title }}</title>
 <style>
 body {
     background-image: url("{% static 'background.png' %}");
